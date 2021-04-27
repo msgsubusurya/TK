@@ -15,18 +15,16 @@ async def aria_start():
     aria2_daemon_start_cmd = []
     # start the daemon, aria2c command
     aria2_daemon_start_cmd.append("aria2c")
-    # aria2_daemon_start_cmd.append("--allow-overwrite=true")
+    aria2_daemon_start_cmd.append("--allow-overwrite=true")
     aria2_daemon_start_cmd.append("--daemon=true")
     aria2_daemon_start_cmd.append("--enable-rpc")
-    aria2_daemon_start_cmd.append("--disk-cache=0")
-    aria2_daemon_start_cmd.append("--follow-torrent=false")
+    aria2_daemon_start_cmd.append("--follow-torrent=mem")
     aria2_daemon_start_cmd.append("--max-connection-per-server=10")
     aria2_daemon_start_cmd.append("--min-split-size=10M")
     aria2_daemon_start_cmd.append("--rpc-listen-all=true")
     aria2_daemon_start_cmd.append(f"--rpc-listen-port=8100")
     aria2_daemon_start_cmd.append("--rpc-max-request-size=1024M")
-    aria2_daemon_start_cmd.append("--seed-ratio=0.0")
-    aria2_daemon_start_cmd.append("--seed-time=1")
+    aria2_daemon_start_cmd.append("--seed-time=0")
     aria2_daemon_start_cmd.append("--split=10")
     aria2_daemon_start_cmd.append(f"--bt-stop-timeout=100")
     #
@@ -41,11 +39,7 @@ async def aria_start():
     torlog.debug(stdout)
     torlog.debug(stderr)
     aria2 = aria2p.API(
-        aria2p.Client(
-            host="http://localhost",
-            port=8100,
-            secret=""
-        )
+        aria2p.Client(host="http://localhost", port=ARIA_TWO_STARTED_PORT, secret="")
     )
     return aria2
 
@@ -131,7 +125,9 @@ async def aria_dl(
     
     ar_task = ARTask(None, sent_message_to_update_tg_p, aria_instance, None)
     await ar_task.set_original_mess()
-
+    
+    if incoming_link.lower().startswith("https://"):
+        sagtus, err_message = add_url(aria_instance, incoming_link, c_file_name)
     if incoming_link.lower().startswith("magnet:"):
         sagtus, err_message = add_magnet(aria_instance, incoming_link, c_file_name)
     elif incoming_link.lower().endswith(".torrent"):
