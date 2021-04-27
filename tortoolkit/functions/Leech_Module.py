@@ -378,7 +378,7 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False):
             if url is None:
                 stat, dl_task = await ariatools.aria_dl(msg.raw_text,rmsg,omess)
             else:
-                stat, dl_task = await ariatools.aria_dl(url,rmsg,omess)
+                stat, dl_task = await ariatools.aria_dl(url,rmsg,user_msg,omess)
             if isinstance(dl_task,ARTask) and stat:
                 path = await dl_task.get_path()
                 if re_name:
