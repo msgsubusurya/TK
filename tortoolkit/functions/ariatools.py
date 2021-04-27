@@ -173,9 +173,6 @@ async def aria_dl(
     await asyncio.sleep(1)
     
     if op is None:
-        await ar_task.set_inactive("Known error. Nothing wrong here. You didnt follow instructions.")
-        return False, ar_task
-    else:
         statusr, stmsg = op
         if statusr:
             file = aria_instance.get_download(err_message)
