@@ -22,7 +22,7 @@ async def aria_start():
     aria2_daemon_start_cmd.append("--max-connection-per-server=10")
     aria2_daemon_start_cmd.append("--min-split-size=10M")
     aria2_daemon_start_cmd.append("--rpc-listen-all=true")
-    aria2_daemon_start_cmd.append(f"--rpc-listen-port=8100")
+    aria2_daemon_start_cmd.append(f"--rpc-listen-port=6800")
     aria2_daemon_start_cmd.append("--rpc-max-request-size=1024M")
     aria2_daemon_start_cmd.append("--seed-time=0")
     aria2_daemon_start_cmd.append("--split=10")
@@ -39,7 +39,7 @@ async def aria_start():
     torlog.debug(stdout)
     torlog.debug(stderr)
     aria2 = aria2p.API(
-        aria2p.Client(host="http://localhost", port=ARIA_TWO_STARTED_PORT, secret="")
+        aria2p.Client(host="http://localhost", port=6800, secret="")
     )
     return aria2
 
