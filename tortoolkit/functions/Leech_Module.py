@@ -376,9 +376,9 @@ async def check_link(msg,rclone=False,is_zip=False, extract=False):
             path = None
             rmsg = await omess.client.get_messages(ids=rmsg.id, entity=rmsg.chat_id)
             if url is None:
-                stat, dl_task = await ariatools.aria_dl(msg.raw_text,"",rmsg,omess)
+                stat, dl_task = await ariatools.aria_dl(msg.raw_text,rmsg,omess)
             else:
-                stat, dl_task = await ariatools.aria_dl(url,"",rmsg,omess)
+                stat, dl_task = await ariatools.aria_dl(url,rmsg,omess)
             if isinstance(dl_task,ARTask) and stat:
                 path = await dl_task.get_path()
                 if re_name:
