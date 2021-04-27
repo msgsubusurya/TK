@@ -171,16 +171,6 @@ async def aria_dl(
             await ar_task.set_inactive("Can't get metadata.\n")
             return False, ar_task
     await asyncio.sleep(1)
-    
-    if op is None:
-            file = aria_instance.get_download(err_message)
-            to_upload_file = file.name
-            await ar_task.set_path(to_upload_file)
-            await ar_task.set_done()
-            return True, ar_task
-        else:
-            await ar_task.set_inactive(stmsg)
-            return False, ar_task
 
 async def check_progress_for_dl(aria2, gid, event, previous_message, task, rdepth = 0, user_msg=None):
     try:
