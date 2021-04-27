@@ -173,8 +173,6 @@ async def aria_dl(
     await asyncio.sleep(1)
     
     if op is None:
-        statusr, stmsg = op
-        if statusr:
             file = aria_instance.get_download(err_message)
             to_upload_file = file.name
             await ar_task.set_path(to_upload_file)
