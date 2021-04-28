@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # (c) YashDK [yash-dk@github]
 
-import asyncio, aria2p, logging, os
+import asyncio, aria2p, logging, os, time
 from ..core.getVars import get_val
 from telethon.tl.types import KeyboardButtonCallback
 from telethon.errors.rpcerrorlist import MessageNotModifiedError
@@ -171,6 +171,46 @@ async def aria_dl(
             await ar_task.set_inactive("Can't get metadata.\n")
             return False, ar_task
     await asyncio.sleep(1)
+
+async def request_download(url, file_name, r_user_id):
+    directory_path = os.path.join(DOWNLOAD_LOCATION, str(r_user_id), str(time.time()))
+    # create download directory, if not exist
+    if not os.path.isdir(directory_path):
+        os.makedirs(directory_path)
+    local_file_path = os.path.join(directory_path, file_name)
+    command_to_exec = ["wget", "-O", local_file_path, url]
+    process = await asyncio.create_subprocess_exec(
+        *command_to_exec,
+        # stdout must a pipe to be accessible as process.stdout
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    # Wait for the subprocess to finish
+    stdout, stderr = await process.communicate()
+    e_response = stderr.decode().strip()
+    # logger.info(e_response)
+    t_response = stdout.decode().strip()
+    # logger.info(t_response)
+    final_m_r = e_response + "\n\n\n" + t_response
+    if os.path.exists(local_file_path):
+        return True, local_file_path
+    else:
+        return False, final_m_r
+
+        if op is None:
+        await ar_task.set_inactive("Known error. Nothing wrong here. You didnt follow instructions.")
+        return False, ar_task
+    else:
+        statusr, stmsg = op
+        if statusr:
+            file = aria_instance.get_download(err_message)
+            to_upload_file = file.name
+            await ar_task.set_path(to_upload_file)
+            await ar_task.set_done()
+            return True, ar_task
+        else:
+            await ar_task.set_inactive(stmsg)
+            return False, ar_task
 
 async def check_progress_for_dl(aria2, gid, event, previous_message, task, rdepth = 0, user_msg=None):
     try:
