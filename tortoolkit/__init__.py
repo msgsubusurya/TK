@@ -24,3 +24,5 @@ user_db = UserDB()
 uptime = time.time()
 
 SessionVars = VarHolder(var_db)
+
+DOWNLOAD_LOCATION = "./DOWNLOADS"
