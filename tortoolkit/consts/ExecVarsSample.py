@@ -37,6 +37,9 @@ except:
         # UNCOMMENT THE BELOW LINE WHEN USING CONTAINER AND COMMENT THE UPPER LINE
         #DB_URI = "dbname=tortk user=postgres password=your-pass host=db port=5432"
         
+       # chunk size that should be used with requests
+       CHUNK_SIZE = int(os.environ.get("CHUNK_SIZE", "128"))
+
         # the download location, where the HTTP Server runs
         DOWNLOAD_LOCATION = "./DOWNLOADS"
 
