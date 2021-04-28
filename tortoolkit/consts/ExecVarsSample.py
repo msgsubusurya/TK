@@ -81,7 +81,7 @@ except:
         FORCE_DOCS_USER = False
         FAST_UPLOAD = True
         METAINFO_BOT = False
-        
+        EXPRESS_UPLOAD = True
 
 
 
