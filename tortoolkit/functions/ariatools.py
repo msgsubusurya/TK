@@ -6,7 +6,7 @@ from ..core.getVars import get_val
 from telethon.tl.types import KeyboardButtonCallback
 from telethon.errors.rpcerrorlist import MessageNotModifiedError
 from ..core.status.status import ARTask
-from tortoolkit.consts.ExecVarsSample import DOWNLOAD_LOCATION
+from tortoolkit import DOWNLOAD_LOCATION
 
 # referenced from public leech
 # pylint: disable=no-value-for-parameter
