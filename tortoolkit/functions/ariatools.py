@@ -198,7 +198,7 @@ async def request_download(url, file_name, r_user_id):
     else:
         return False, final_m_r
 
-        if op is None:
+    if op is None:
         await ar_task.set_inactive("Known error. Nothing wrong here. You didnt follow instructions.")
         return False, ar_task
     else:
